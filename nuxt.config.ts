@@ -17,6 +17,16 @@ export default defineNuxtConfig({
           content: "Esta es mi primera aplicación con Nuxt.js",
         },
       ],
+      link: [
+        {
+          rel: "stylesheet",
+          href: "https://cdn.jsdelivr.net/npm/vuetify@{{ version }}/dist/vuetify.min.css",
+        },
+        {
+          rel: "stylesheet",
+          href: "https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css",
+        },
+      ],
     },
   },
 
