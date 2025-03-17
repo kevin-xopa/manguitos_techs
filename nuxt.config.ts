@@ -6,6 +6,7 @@ export default defineNuxtConfig({
 
   css: ["~/assets/css/cursor.css"],
   app: {
+    baseURL: "/manguitos_techs/", 
     head: {
       title: "Manguitos Tech",
       meta: [
@@ -42,4 +43,8 @@ export default defineNuxtConfig({
     },
   },
   devtools: { enabled: true },
+
+  generate: {
+    routes: ["/"], // Especifica rutas estáticas si las necesitas
+  },
 });
