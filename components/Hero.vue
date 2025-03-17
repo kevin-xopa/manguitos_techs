@@ -43,7 +43,7 @@
       <v-col cols="12" md="5" class="pr-10">
         <div class="mango-circuit">
           <img
-            src="public/mango-dev.png"
+            src="/manguitos_techs/mango-dev.png"
             class="circuit-mango"
             alt="Mango Tecnológico"
             width="100%"

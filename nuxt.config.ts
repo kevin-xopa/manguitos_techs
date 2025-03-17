@@ -1,12 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
+import vuetify from "vite-plugin-vuetify";
 
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
 
   css: ["~/assets/css/cursor.css"],
+
   app: {
-    baseURL: "/manguitos_techs/", 
+    baseURL: process.env.NODE_ENV === "production" ? "/manguitos_techs/" : "/",
+    cdnURL: process.env.NODE_ENV === "production" ? "/manguitos_techs/" : "/",
     head: {
       title: "Manguitos Tech",
       meta: [
@@ -26,25 +28,20 @@ export default defineNuxtConfig({
     (_options, nuxt) => {
       nuxt.hooks.hook("vite:extendConfig", (config) => {
         // @ts-expect-error
-        config.plugins.push(
-          vuetify({
-            autoImport: true,
-          })
-        );
+        config.plugins.push(vuetify({ autoImport: true }));
       });
     },
   ],
 
   vite: {
-    vue: {
-      template: {
-        transformAssetUrls,
-      },
+    define: {
+      "process.env.DEBUG": false, // Evita errores en producción con Vuetify
     },
   },
+
   devtools: { enabled: true },
 
   generate: {
-    routes: ["/"], // Especifica rutas estáticas si las necesitas
+    fallback: "404.html", // Para que GitHub Pages maneje bien las rutas
   },
 });
