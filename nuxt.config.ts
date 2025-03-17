@@ -1,6 +1,4 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 import vuetify from "vite-plugin-vuetify";
-
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
 
@@ -8,7 +6,6 @@ export default defineNuxtConfig({
 
   app: {
     baseURL: process.env.NODE_ENV === "production" ? "/manguitos_techs/" : "/",
-    cdnURL: process.env.NODE_ENV === "production" ? "/manguitos_techs/" : "/",
     head: {
       title: "Manguitos Tech",
       meta: [
@@ -20,11 +17,22 @@ export default defineNuxtConfig({
       link: [
         {
           rel: "stylesheet",
-          href: "https://cdn.jsdelivr.net/npm/vuetify@{{ version }}/dist/vuetify.min.css",
+          href: "https://cdn.jsdelivr.net/npm/vuetify@latest/dist/vuetify.min.css",
         },
         {
           rel: "stylesheet",
           href: "https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css",
+        },
+      ],
+      script: [
+        {
+          type: "importmap",
+          children: `{
+            "imports": {
+              "vue": "https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.esm-browser.js",
+              "vuetify": "https://cdn.jsdelivr.net/npm/vuetify@latest/dist/vuetify.esm.js"
+            }
+          }`,
         },
       ],
     },
@@ -41,11 +49,6 @@ export default defineNuxtConfig({
         config.plugins.push(
           vuetify({
             autoImport: true,
-            // Aseguramos que Vuetify use rutas relativas para los assets
-            css: {
-              sourceMap: true,
-              assetUrl: "/manguitos_techs/",
-            },
           })
         );
       });
@@ -60,7 +63,7 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
-  generate: {
-    fallback: "404.html", // Para que GitHub Pages maneje bien las rutas
+  router: {
+    base: "/manguitos_techs/", // Esta línea es crucial para GitHub Pages
   },
 });
