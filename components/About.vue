@@ -22,7 +22,7 @@
           <div class="profile-card">
             <div class="profile-image">
               <div class="profile-photo">
-                <img src="/assets/images/profile.jpeg" alt="Kevin Ochoa - Full-Stack Developer" class="profile-img">
+                <img src="/profile.jpeg" alt="Kevin Ochoa - Full-Stack Developer" class="profile-img">
               </div>
             </div>
 
