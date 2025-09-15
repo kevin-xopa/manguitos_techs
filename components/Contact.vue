@@ -10,22 +10,29 @@
       <div class="marigold-pattern marigold-contact-1">🧡</div>
     </div>
 
-    <v-container class="position-relative" style="z-index: 10; max-width: 1200px;">
-      <v-row align="stretch" class="pa-0">
-        <v-col cols="12" md="12" lg="6" class="d-flex pa-3">
+    <v-container
+      class="position-relative"
+      style="z-index: 10; max-width: 1200px"
+    >
+      <v-row justify="center" class="pa-0">
+        <v-col cols="12" lg="8" class="d-flex pa-3">
           <v-card class="contact-info-card flex-grow-1 pa-10" elevation="0">
-            <div class="section-tag mb-6">Contacto</div>
-            <h2 class="contact-title mb-6">
-              ¿Listo para hacer realidad
-              <span class="highlight-text">tu próximo proyecto?</span>
-            </h2>
-            <p class="contact-description mb-12">
-              Cuéntame sobre tu idea y trabajemos juntos para crear algo
-              increíble. Respondo en menos de 24 horas.
-            </p>
+            <div class="text-center mb-8">
+              <div class="section-tag mb-6">Contacto</div>
+              <h2 class="contact-title mb-6">
+                ¿Listo para hacer realidad
+                <span class="highlight-text">tu próximo proyecto?</span>
+              </h2>
+              <p class="contact-description mb-12">
+                Cuéntame sobre tu idea y trabajemos juntos para crear algo
+                increíble. Respondo en menos de 24 horas.
+              </p>
+            </div>
 
             <div class="mb-12">
-              <div class="contact-method d-flex align-center justify-space-between mb-8 pa-6">
+              <div
+                class="contact-method d-flex align-center justify-space-between mb-8 pa-6"
+              >
                 <div class="method-icon email mr-6">
                   <v-icon size="24">mdi-email</v-icon>
                 </div>
@@ -47,7 +54,9 @@
                 </v-btn>
               </div>
 
-              <div class="contact-method d-flex align-center justify-space-between mb-8 pa-6">
+              <div
+                class="contact-method d-flex align-center justify-space-between mb-8 pa-6"
+              >
                 <div class="method-icon whatsapp mr-6">
                   <v-icon size="24">mdi-whatsapp</v-icon>
                 </div>
@@ -69,7 +78,9 @@
                 </v-btn>
               </div>
 
-              <div class="contact-method d-flex align-center justify-space-between mb-8 pa-6">
+              <div
+                class="contact-method d-flex align-center justify-space-between mb-8 pa-6"
+              >
                 <div class="method-icon linkedin mr-6">
                   <v-icon size="24">mdi-linkedin</v-icon>
                 </div>
@@ -91,7 +102,9 @@
                 </v-btn>
               </div>
 
-              <div class="contact-method d-flex align-center justify-space-between mb-8 pa-6">
+              <div
+                class="contact-method d-flex align-center justify-space-between mb-8 pa-6"
+              >
                 <div class="method-icon github mr-6">
                   <v-icon size="24">mdi-github</v-icon>
                 </div>
@@ -115,95 +128,6 @@
             </div>
           </v-card>
         </v-col>
-
-        <v-col cols="12" md="12" lg="6" class="d-flex pa-3">
-          <v-card class="form-card flex-grow-1" elevation="0">
-            <div class="form-decoration">
-              <div class="skull-decoration-form">💀</div>
-              <div class="flower-decoration-form">🌹</div>
-            </div>
-            <div class="form-content pa-10">
-              <h3 class="form-title mb-2">Envíame un mensaje</h3>
-              <p class="form-subtitle mb-8">
-                Completa el formulario y me pondré en contacto contigo pronto
-              </p>
-
-              <v-form
-                ref="contactForm"
-                v-model="formValid"
-                @submit.prevent="submitForm"
-              >
-                <v-row>
-                  <v-col cols="12" md="6">
-                    <v-text-field
-                      v-model="form.name"
-                      label="Nombre"
-                      variant="outlined"
-                      :rules="nameRules"
-                      required
-                      class="mb-4"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="6">
-                    <v-text-field
-                      v-model="form.email"
-                      label="Email"
-                      variant="outlined"
-                      :rules="emailRules"
-                      required
-                      class="mb-4"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-
-                <v-text-field
-                  v-model="form.company"
-                  label="Empresa (opcional)"
-                  variant="outlined"
-                  class="mb-4"
-                ></v-text-field>
-
-                <v-select
-                  v-model="form.service"
-                  :items="serviceOptions"
-                  label="Tipo de proyecto"
-                  variant="outlined"
-                  required
-                  class="mb-4"
-                ></v-select>
-
-                <v-textarea
-                  v-model="form.message"
-                  label="Cuéntame sobre tu proyecto"
-                  variant="outlined"
-                  :rules="messageRules"
-                  rows="4"
-                  required
-                  class="mb-4"
-                ></v-textarea>
-
-                <v-checkbox
-                  v-model="form.newsletter"
-                  label="Quiero recibir actualizaciones sobre nuevos proyectos"
-                  class="mb-8"
-                ></v-checkbox>
-
-                <v-btn
-                  type="submit"
-                  class="submit-btn"
-                  color="primary"
-                  size="large"
-                  block
-                  :loading="isSubmitting"
-                  :disabled="!formValid"
-                >
-                  Enviar mensaje
-                  <v-icon end>mdi-send</v-icon>
-                </v-btn>
-              </v-form>
-            </div>
-          </v-card>
-        </v-col>
       </v-row>
     </v-container>
   </section>
@@ -212,71 +136,6 @@
 <script>
 export default {
   name: "Contact",
-  data() {
-    return {
-      formValid: false,
-      isSubmitting: false,
-      form: {
-        name: "",
-        email: "",
-        company: "",
-        service: "",
-        message: "",
-        newsletter: false,
-      },
-      serviceOptions: [
-        "Desarrollo Web Full-Stack",
-        "Aplicación Móvil",
-        "API & Integraciones",
-        "Consultoría Tecnológica",
-        "Otro",
-      ],
-      nameRules: [
-        (v) => !!v || "El nombre es requerido",
-        (v) => v.length >= 2 || "Mínimo 2 caracteres",
-      ],
-      emailRules: [
-        (v) => !!v || "El email es requerido",
-        (v) => /.+@.+\..+/.test(v) || "Email debe ser válido",
-      ],
-      messageRules: [
-        (v) => !!v || "El mensaje es requerido",
-        (v) => v.length >= 10 || "Mínimo 10 caracteres",
-      ],
-    };
-  },
-  methods: {
-    async submitForm() {
-      if (!this.formValid) return;
-
-      this.isSubmitting = true;
-
-      // Simular envío del formulario
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // Aquí iría la lógica real de envío (EmailJS, Netlify Forms, etc.)
-      console.log("Formulario enviado:", this.form);
-
-      // Reset form
-      this.resetForm();
-      this.isSubmitting = false;
-
-      // Mostrar mensaje de éxito (puedes usar un toast/snackbar)
-      alert("¡Mensaje enviado correctamente! Te contactaré pronto.");
-    },
-
-    resetForm() {
-      this.form = {
-        name: "",
-        email: "",
-        company: "",
-        service: "",
-        message: "",
-        newsletter: false,
-      };
-      this.$refs.contactForm?.reset();
-    },
-  },
 };
 </script>
 
@@ -355,7 +214,6 @@ export default {
   }
 }
 
-
 .contact-info {
   position: relative;
 }
@@ -432,7 +290,6 @@ export default {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-
 .contact-method {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 107, 157, 0.1);
@@ -478,7 +335,6 @@ export default {
   background: linear-gradient(135deg, #333 0%, #1a1a1a 100%);
 }
 
-
 .method-title {
   font-size: 1.125rem;
   font-weight: 600;
@@ -517,7 +373,6 @@ export default {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(255, 107, 157, 0.3);
 }
-
 
 .contact-form {
   position: relative;
@@ -604,8 +459,6 @@ export default {
   color: rgb(var(--v-theme-on-surface-variant));
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 }
-
-
 
 .submit-btn {
   background: rgb(var(--v-theme-primary)) !important;
