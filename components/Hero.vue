@@ -30,8 +30,9 @@
 
         <!-- Professional Description -->
         <p class="hero-description mb-8">
-          5+ años entregando soluciones digitales que funcionan de verdad.
-          El código es mi chamba - si no está perfecto, no sale. Resultados garantizados.
+          5+ años entregando soluciones digitales que funcionan de verdad. El
+          código es mi chamba - si no está perfecto, no sale. Resultados
+          garantizados.
         </p>
 
         <!-- Professional Metrics -->
@@ -123,8 +124,8 @@ export default {
       "Creando soluciones digitales innovadoras",
       "Transformando ideas en código funcional",
       "Desarrollando con pasión y precisión",
-      "Construyendo el futuro digital"
-    ]
+      "Construyendo el futuro digital",
+    ],
   }),
   mounted() {
     this.startAnimations();
@@ -139,7 +140,7 @@ export default {
         messageIndex = (messageIndex + 1) % this.messages.length;
         this.currentMessage = this.messages[messageIndex];
       }, 3000);
-    }
+    },
   },
 };
 </script>
@@ -177,20 +178,62 @@ export default {
   animation: float 6s ease-in-out infinite;
 }
 
-.skull-1 { top: 20%; left: 10%; animation-delay: 0s; }
-.skull-2 { top: 70%; right: 20%; animation-delay: 2s; }
-.skull-3 { top: 40%; left: 80%; animation-delay: 4s; }
+.skull-1 {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+.skull-2 {
+  top: 70%;
+  right: 20%;
+  animation-delay: 2s;
+}
+.skull-3 {
+  top: 40%;
+  left: 80%;
+  animation-delay: 4s;
+}
 
-.flower-1 { top: 10%; right: 30%; animation-delay: 1s; color: #ff6b9d; }
-.flower-2 { bottom: 20%; left: 20%; animation-delay: 3s; color: #ff8e53; }
-.flower-3 { top: 60%; left: 5%; animation-delay: 5s; color: #c44569; }
+.flower-1 {
+  top: 10%;
+  right: 30%;
+  animation-delay: 1s;
+  color: #ff6b9d;
+}
+.flower-2 {
+  bottom: 20%;
+  left: 20%;
+  animation-delay: 3s;
+  color: #ff8e53;
+}
+.flower-3 {
+  top: 60%;
+  left: 5%;
+  animation-delay: 5s;
+  color: #c44569;
+}
 
-.marigold-1 { top: 30%; right: 10%; animation-delay: 1.5s; color: #f39c12; }
-.marigold-2 { bottom: 40%; right: 70%; animation-delay: 3.5s; color: #e67e22; }
+.marigold-1 {
+  top: 30%;
+  right: 10%;
+  animation-delay: 1.5s;
+  color: #f39c12;
+}
+.marigold-2 {
+  bottom: 40%;
+  right: 70%;
+  animation-delay: 3.5s;
+  color: #e67e22;
+}
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(5deg); }
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
 }
 
 /* Main Content */
@@ -221,7 +264,7 @@ export default {
   font-size: 1.75rem;
   font-weight: 700;
   color: rgb(var(--v-theme-on-surface));
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .brand-tagline {
@@ -229,7 +272,7 @@ export default {
   font-size: 1.125rem;
   font-weight: 500;
   margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 /* Professional Title */
@@ -238,7 +281,7 @@ export default {
   font-weight: 700;
   line-height: 1.1;
   color: rgb(var(--v-theme-on-surface));
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   letter-spacing: -0.025em;
   margin-bottom: 1.5rem;
 }
@@ -249,7 +292,7 @@ export default {
 }
 
 .highlight-text::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -2px;
   left: 0;
@@ -266,7 +309,7 @@ export default {
   line-height: 1.7;
   max-width: 600px;
   margin-bottom: 2rem;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 /* Professional Metrics */
@@ -290,7 +333,7 @@ export default {
 }
 
 .metric-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -310,7 +353,7 @@ export default {
   font-weight: 700;
   color: rgb(var(--v-theme-primary));
   line-height: 1;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   margin-bottom: 0.5rem;
 }
 
@@ -320,7 +363,7 @@ export default {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 /* Professional CTAs */
@@ -336,20 +379,25 @@ export default {
   padding: 0.75rem 2rem !important;
   font-weight: 600 !important;
   text-transform: none !important;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
   transition: all 0.3s ease !important;
   position: relative;
   overflow: hidden;
 }
 
 .primary-cta::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
   transition: left 0.5s;
 }
 
@@ -403,8 +451,13 @@ export default {
 }
 
 @keyframes pulse-decoration {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
 }
 
 .code-window {
@@ -436,20 +489,26 @@ export default {
   border-radius: 50%;
 }
 
-.dot.red { background: #ff5f57; }
-.dot.yellow { background: #ffbd2e; }
-.dot.green { background: #28ca42; }
+.dot.red {
+  background: #ff5f57;
+}
+.dot.yellow {
+  background: #ffbd2e;
+}
+.dot.green {
+  background: #28ca42;
+}
 
 .window-title {
   color: rgb(var(--v-theme-on-surface));
   font-weight: 600;
   font-size: 0.875rem;
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
 }
 
 .code-content {
   padding: 1.5rem;
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
   font-size: 0.875rem;
   line-height: 1.6;
 }
@@ -463,10 +522,18 @@ export default {
   padding-left: 1rem;
 }
 
-.code-keyword { color: #ff6b9d; }
-.code-variable { color: #ff8e53; }
-.code-property { color: #c44569; }
-.code-string { color: #f39c12; }
+.code-keyword {
+  color: #ff6b9d;
+}
+.code-variable {
+  color: #ff8e53;
+}
+.code-property {
+  color: #c44569;
+}
+.code-string {
+  color: #f39c12;
+}
 
 /* Responsive Design */
 @media (max-width: 960px) {

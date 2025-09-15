@@ -6,6 +6,7 @@
     <!-- <NuxtWelcome /> -->
   </NuxtLayout>
 </template>
+<<<<<<< HEAD
 
 <style>
 /* Global Dark Background */
@@ -55,3 +56,5 @@ h1, h2, h3, h4, h5, h6, p, span, div, label, .v-label {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 </style>
+=======
+>>>>>>> a91cc27fd6ffad8e6486aab94d5f419358acdfd4

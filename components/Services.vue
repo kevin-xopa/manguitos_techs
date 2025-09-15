@@ -11,6 +11,22 @@ const services = ref([
     features: ["Responsive Design", "API REST", "Autenticación", "Base de datos"]
   },
   {
+    title: "Landing Pages",
+    icon: "🎯",
+    color: "#ec4899",
+    description: "Páginas de aterrizaje optimizadas para conversión con diseño moderno y performance excepcional.",
+    technologies: ["Nuxt.js", "Next.js", "Tailwind", "SEO", "Analytics"],
+    features: ["Alta conversión", "SEO optimizado", "Carga rápida", "A/B Testing"]
+  },
+  {
+    title: "Software a la Medida",
+    icon: "⚙️",
+    color: "#7c3aed",
+    description: "Soluciones personalizadas adaptadas a las necesidades específicas de tu negocio.",
+    technologies: ["Custom Stack", "Microservicios", "Cloud Native", "DevOps"],
+    features: ["Análisis de requisitos", "Arquitectura personalizada", "Escalabilidad", "Mantenimiento"]
+  },
+  {
     title: "Aplicaciones Móviles",
     icon: "📱",
     color: "#10b981",
@@ -19,12 +35,44 @@ const services = ref([
     features: ["Cross-platform", "Offline Support", "Push Notifications", "App Store Deploy"]
   },
   {
+    title: "Aplicaciones a Gran Escala",
+    icon: "🏗️",
+    color: "#0891b2",
+    description: "Sistemas empresariales robustos capaces de manejar millones de usuarios y transacciones.",
+    technologies: ["Kubernetes", "Docker", "Redis", "Microservicios", "Load Balancing"],
+    features: ["Alta disponibilidad", "Auto-scaling", "Monitoreo", "Failover automático"]
+  },
+  {
+    title: "Optimización y Rendimiento",
+    icon: "⚡",
+    color: "#ea580c",
+    description: "Mejora del rendimiento de aplicaciones existentes para máxima velocidad y eficiencia.",
+    technologies: ["Performance Audit", "CDN", "Caching", "Database Optimization"],
+    features: ["Análisis de bottlenecks", "Optimización de queries", "Compresión", "Métricas en tiempo real"]
+  },
+  {
     title: "APIs & Integraciones",
     icon: "🔗",
     color: "#8b5cf6",
     description: "Desarrollo de APIs robustas y conexiones entre sistemas empresariales.",
     technologies: ["FastAPI", "Express.js", "GraphQL", "REST"],
     features: ["Documentación", "Versionado", "Rate Limiting", "Microservicios"]
+  },
+  {
+    title: "Aplicaciones IoT",
+    icon: "🌐",
+    color: "#059669",
+    description: "Desarrollo de sistemas IoT para conectar y gestionar dispositivos inteligentes.",
+    technologies: ["MQTT", "InfluxDB", "Node-RED", "Raspberry Pi", "Arduino"],
+    features: ["Tiempo real", "Edge Computing", "Dashboards", "Alertas automáticas"]
+  },
+  {
+    title: "IA y Machine Learning",
+    icon: "🤖",
+    color: "#dc2626",
+    description: "Soluciones de inteligencia artificial y aprendizaje automático para automatizar procesos.",
+    technologies: ["Python", "TensorFlow", "PyTorch", "OpenAI API", "Scikit-learn"],
+    features: ["Modelos predictivos", "Procesamiento de lenguaje", "Visión artificial", "Automatización"]
   },
   {
     title: "Consultoría Tecnológica",
