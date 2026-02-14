@@ -3,17 +3,27 @@ const skillCategories = [
   {
     icon: "mdi-palette",
     title: "Frontend",
-    skills: ["Vue.js", "React", "TypeScript", "Nuxt"],
+    skills: ["Vue.js", "React", "Nuxt", "Vuetify", "TailwindCSS", "TypeScript"],
   },
   {
-    icon: "mdi-cog",
+    icon: "mdi-server",
     title: "Backend",
-    skills: ["Node.js", "Python", "FastAPI", "PostgreSQL"],
+    skills: ["Laravel", "Python", "FastAPI", "Django", "Flask", "Node.js", "C#"],
+  },
+  {
+    icon: "mdi-database",
+    title: "Bases de Datos",
+    skills: ["PostgreSQL", "MySQL", "SQL Server"],
   },
   {
     icon: "mdi-cellphone",
-    title: "Mobile & Tools",
-    skills: ["React Native", "Flutter", "Git", "Docker"],
+    title: "Mobile & Hardware",
+    skills: ["Kotlin", "React Native", "Arduino"],
+  },
+  {
+    icon: "mdi-toolbox",
+    title: "DevOps & Tools",
+    skills: ["Git", "Docker", "PWA", "GitHub Actions", "Linux"],
   },
 ];
 </script>
@@ -76,18 +86,27 @@ const skillCategories = [
           </v-chip>
 
           <h2 class="about-title mb-4">
-            Construyendo el futuro
-            <span class="highlight-text">una línea de código a la vez</span>
+            Tecnología accesible,
+            <span class="highlight-text">hecha desde México</span>
           </h2>
 
           <div class="mb-8">
             <p class="mb-4">
-              Desarrollador full-stack con más de 5 años entregando soluciones digitales robustas.
-              Para mí el código es chamba, no hobby - cada proyecto debe quedar perfecto o no sale.
+              Desarrollador full-stack desde México. Construyo con Laravel, Vue y lo que
+              haga falta para resolver problemas reales. En Jixo desarrollo productos que
+              integran e-commerce, pasarelas de pago y sistemas de punto de venta — actualmente
+              manejando cuatro productos con planes de llegar a seis.
+            </p>
+            <p class="mb-4">
+              En paralelo construyo Xoco — un juego de tangram educativo y gratuito para
+              niños, sin publicidad, porque creo que un niño merece crecer feliz aprendiendo
+              sin que el precio sea una barrera. El conocimiento no debería tener costo.
             </p>
             <p>
-              Si no está listo, no soy yo. Si está mal, lo soluciono. Si se puede mejorar, lo hago.
-              Mi trabajo habla por sí solo: código limpio, arquitecturas sólidas, resultados garantizados.
+              Me mueve la idea de que Latinoamérica merece tecnología accesible y bien
+              hecha, no solo las sobras caras del primer mundo. Quiero construir una empresa
+              de tecnología en esta región — no porque falten ideas aquí, sino porque falta
+              quien las ejecute con precios justos y con nuestra realidad en mente.
             </p>
           </div>
 

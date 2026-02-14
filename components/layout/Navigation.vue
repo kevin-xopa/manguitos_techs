@@ -20,7 +20,19 @@
           {{ link.text }}
         </v-btn>
 
-        <ThemeToggle class="ml-1" />
+        <!-- Toggle tema -->
+        <v-btn
+          icon
+          variant="text"
+          size="small"
+          class="nav-link ml-1"
+          @click="toggleTheme"
+        >
+          <v-icon size="18">{{ isDark ? 'mdi-weather-sunny' : 'mdi-weather-night' }}</v-icon>
+          <v-tooltip activator="parent" location="bottom">
+            {{ isDark ? 'Tema claro' : 'Tema oscuro' }}
+          </v-tooltip>
+        </v-btn>
       </div>
 
       <!-- Mobile menu -->
@@ -40,6 +52,7 @@
       v-model="drawer"
       location="right"
       temporary
+      color="surface-container-low"
       width="280"
     >
       <v-list bg-color="transparent">
@@ -49,11 +62,13 @@
           :href="link.to"
           @click="drawer = false"
         >
-          <v-list-item-title>{{ link.text }}</v-list-item-title>
+          <v-list-item-title class="drawer-link">{{ link.text }}</v-list-item-title>
         </v-list-item>
-        <v-divider class="my-2" />
-        <v-list-item @click="drawer = false">
-          <ThemeToggle />
+        <v-list-item @click="toggleTheme(); drawer = false">
+          <v-list-item-title class="drawer-link">
+            <v-icon size="16" class="mr-2">{{ isDark ? 'mdi-weather-sunny' : 'mdi-weather-night' }}</v-icon>
+            {{ isDark ? 'Tema claro' : 'Tema oscuro' }}
+          </v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -61,9 +76,17 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { useTheme } from "vuetify";
 
 const drawer = ref(false);
+const theme = useTheme();
+
+const isDark = computed(() => theme.global.current.value.dark);
+const toggleTheme = () => {
+  theme.global.name.value = isDark.value ? "light" : "dark";
+};
+
 const links = [
   { text: "Inicio", to: "#" },
   { text: "Sobre Mí", to: "#sobre-mi" },
@@ -76,21 +99,21 @@ const links = [
 <style scoped>
 .nav-logo {
   font-size: 1.3rem;
-  font-weight: 700;
   color: rgb(var(--v-theme-on-surface));
-  letter-spacing: 0.05em;
-  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: 0.1em;
 }
 
 .nav-link {
-  color: rgb(var(--v-theme-on-surface-variant)) !important;
   font-size: 0.8rem !important;
   letter-spacing: 0.02em;
   text-transform: none !important;
-  transition: color 0.3s ease;
 }
 
 .nav-link:hover {
   color: rgb(var(--v-theme-primary)) !important;
+}
+
+.drawer-link {
+  color: rgb(var(--v-theme-on-surface));
 }
 </style>

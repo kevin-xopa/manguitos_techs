@@ -10,10 +10,15 @@ const toggleTheme = () => {
 
 <template>
   <v-btn
-    :icon="theme.global.current.value.dark ? 'mdi-weather-sunny' : 'mdi-weather-night'"
+    :icon="
+      theme.global.current.value.dark
+        ? 'mdi-weather-sunny'
+        : 'mdi-weather-night'
+    "
     variant="text"
     color="primary"
     size="small"
+    elevation="0"
     @click="toggleTheme"
   />
 </template>

@@ -312,13 +312,11 @@ const submitForm = async () => {
 .form-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: rgb(var(--v-theme-on-surface));
   margin-bottom: 4px;
 }
 
 .form-subtitle {
   font-size: 0.9rem;
-  color: rgb(var(--v-theme-on-surface-variant));
 }
 
 .form-grid {
