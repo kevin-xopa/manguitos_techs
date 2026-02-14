@@ -4,39 +4,47 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Nuxt 3 application called "Manguitos Tech" built with Vue 3, TypeScript, and Vuetify for the UI components. The application is configured for deployment to GitHub Pages with a base URL of `/manguitos_techs/`.
+Manguitos Tech is a single-page portfolio/landing site for "Kevin Tech" (a full-stack developer). Built with Nuxt 3, Vue 3, and Vuetify 3. Content is in Spanish with a "Day of the Dead" visual theme. Deployed to GitHub Pages at `/manguitos_techs/`.
 
 ## Development Commands
 
-- **Development server**: `npm run dev` - Starts dev server on http://localhost:3000
-- **Build**: `npm run build` - Build for production
-- **Generate**: `npm run generate` - Generate static site
-- **Preview**: `npm run preview` - Preview production build locally
-- **Install dependencies**: `npm install`
+- `npm run dev` — Start dev server (http://localhost:3000)
+- `npm run generate` — Generate static site for GitHub Pages
+- `npm run build` — Build for production
+- `npm run preview` — Preview production build
+
+No test runner or linter is configured.
 
 ## Architecture
 
-### Directory Structure
-- `components/` - Vue components organized by feature
-  - `layout/` - Layout components (Footer, Navigation)
-  - Main components: Hero, Services, Tecnologi
-- `layouts/` - Nuxt layout templates (default.vue)
-- `pages/` - File-based routing (index.vue)
-- `plugins/` - Nuxt plugins (Vuetify configuration)
-- `assets/css/` - Custom CSS files
-- `public/` - Static assets
+This is a single-page app (`ssr: false`) where `pages/index.vue` composes all section components in order: Hero, About, Services, Portfolio, Contact. Navigation uses anchor links (`#sobre-mi`, `#services`, `#proyectos`, `#contacto`).
 
-### Key Configuration
-- **Vuetify Integration**: Configured via vite-plugin-vuetify with auto-import
-- **GitHub Pages**: Base URL set to `/manguitos_techs/` for production
-- **TypeScript**: Extends `.nuxt/tsconfig.json`
-- **CSS**: Custom cursor.css in assets/css/
+All components use **Composition API** with `<script setup>`.
 
-### Build Configuration
-- Transpiles Vuetify for SSR compatibility
-- Uses CDN links for Vuetify and Material Design Icons in production
-- Vite configuration disables debug mode in production
-- Router base set for GitHub Pages deployment
+### Vuetify Setup
 
-### Deployment
-The application is configured for GitHub Pages deployment with appropriate base URL and router configuration in `nuxt.config.ts`.
+Vuetify is integrated via a custom Nuxt plugin (`plugins/vuetify.js`) that imports three config modules:
+- `plugins/vuetify/theme.js` — Light/dark themes (dark is default) with Pink/Purple modern palette (primary `#ff6b9d`, secondary `#7c3aed`/`#b69aff`, tertiary `#0891b2`/`#67d8f0`)
+- `plugins/vuetify/defaults.js` — Global component defaults (VBtn, VCard, VTextField, etc. all use `rounded: "lg"`)
+- `plugins/vuetify/icons.js` — MDI icon set configuration
+
+Vuetify is loaded exclusively via `vite-plugin-vuetify` (no CDN). The plugin is registered as a Nuxt module hook.
+
+### Typography
+
+**Space Grotesk** (Google Fonts) — loaded via CDN in `nuxt.config.ts` head. Weights: 400, 500, 700.
+
+### Layout
+
+`layouts/default.vue` wraps content in `<v-app>` with `<LayoutNavigation />` and `<v-main>`. The footer (`layout/Footer.vue`) is rendered independently by each page/component as needed.
+
+### Styling Notes
+
+- `assets/css/cursor.css` — Custom mango-shaped SVG cursors (globally loaded via `nuxt.config.ts` css array)
+- Components use scoped CSS with Vuetify theme variables (`rgb(var(--v-theme-primary))`, `rgba(var(--v-theme-primary), 0.2)`, etc.)
+- All colors are driven by the centralized theme — no hardcoded hex values in components
+- Glassmorphism effects (backdrop-filter, rgba backgrounds) and Day of the Dead float animations are kept as scoped CSS
+
+### GitHub Pages Deployment
+
+`nuxt.config.ts` sets `app.baseURL` to `/manguitos_techs/` in production via `NODE_ENV` check. The `router.base` is also set statically. When adding new static assets, reference them with the base URL in mind.

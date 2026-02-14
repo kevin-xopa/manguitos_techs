@@ -1,9 +1,13 @@
 <template>
   <div>
     <Hero />
+    <WaveSeparator variant="tertiary" />
     <About />
+    <WaveSeparator variant="primary" />
     <Services />
+    <WaveSeparator variant="secondary" />
     <Portfolio />
+    <WaveSeparator variant="tertiary" flip />
     <Contact />
   </div>
 </template>

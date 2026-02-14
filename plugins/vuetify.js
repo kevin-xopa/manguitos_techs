@@ -1,5 +1,5 @@
 import "vuetify/styles";
-import '@mdi/font/css/materialdesignicons.css' 
+import '@mdi/font/css/materialdesignicons.css'
 import { createVuetify } from "vuetify";
 
 
@@ -21,7 +21,7 @@ export default defineNuxtPlugin((app) => {
         //     xl: 1280,
         // },
     },
-    ssr: true,
+    ssr: false,
     defaults,
     icons,
     theme,

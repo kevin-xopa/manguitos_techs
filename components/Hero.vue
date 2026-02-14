@@ -1,3 +1,30 @@
+<script setup>
+import { ref, onMounted, onUnmounted } from "vue";
+
+const currentMessage = ref("");
+const messages = [
+  "Creando soluciones digitales innovadoras",
+  "Transformando ideas en código funcional",
+  "Desarrollando con pasión y precisión",
+  "Construyendo el futuro digital",
+];
+
+let intervalId = null;
+
+onMounted(() => {
+  let messageIndex = 0;
+  currentMessage.value = messages[0];
+  intervalId = setInterval(() => {
+    messageIndex = (messageIndex + 1) % messages.length;
+    currentMessage.value = messages[messageIndex];
+  }, 3000);
+});
+
+onUnmounted(() => {
+  if (intervalId) clearInterval(intervalId);
+});
+</script>
+
 <template>
   <v-container fluid class="hero-container pa-0">
     <!-- Day of the Dead Background -->
@@ -14,58 +41,68 @@
 
     <v-row class="hero-content-wrapper" align="center">
       <v-col cols="12" md="7" class="hero-main">
-        <!-- Professional Brand -->
-        <div class="brand-section mb-6">
-          <div class="brand-logo">
-            <span class="brand-name">Kevin Tech</span>
-          </div>
-          <p class="brand-tagline">Full-Stack Developer</p>
+        <!-- Brand -->
+        <div class="mb-12">
+          <h2 class="text-h4 font-weight-bold mb-1">
+            Kevin Tech
+          </h2>
+          <v-chip variant="tonal" color="primary" size="small" label>
+            Full-Stack Developer
+          </v-chip>
         </div>
 
-        <!-- Professional Title -->
+        <!-- Title -->
         <h1 class="hero-title mb-4">
           Desarrollo Software que
           <span class="highlight-text">Impulsa Negocios</span>
         </h1>
 
-        <!-- Professional Description -->
         <p class="hero-description mb-8">
           5+ años entregando soluciones digitales que funcionan de verdad. El
           código es mi chamba - si no está perfecto, no sale. Resultados
           garantizados.
         </p>
 
-        <!-- Professional Metrics -->
-        <div class="metrics-container mb-8">
-          <div class="metric-card">
-            <div class="metric-number">50+</div>
-            <div class="metric-label">Proyectos</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-number">5+</div>
-            <div class="metric-label">Años</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-number">100%</div>
-            <div class="metric-label">Chamba</div>
-          </div>
+        <!-- Metrics -->
+        <div class="d-flex flex-wrap ga-4 mb-8">
+          <v-sheet
+            v-for="metric in [
+              { number: '50+', label: 'Proyectos' },
+              { number: '5+', label: 'Años' },
+              { number: '100%', label: 'Chamba' },
+            ]"
+            :key="metric.label"
+            class="metric-card pa-4 text-center"
+            rounded="lg"
+            border
+          >
+            <div class="text-h4 font-weight-bold text-primary">
+              {{ metric.number }}
+            </div>
+            <div class="text-caption text-medium-emphasis text-uppercase font-weight-medium" style="letter-spacing: 0.05em;">
+              {{ metric.label }}
+            </div>
+          </v-sheet>
         </div>
 
-        <!-- Professional CTAs -->
-        <div class="cta-buttons">
+        <!-- CTAs -->
+        <div class="d-flex flex-wrap ga-4">
           <v-btn
-            class="primary-cta"
             size="large"
             color="primary"
             href="#proyectos"
+            rounded="lg"
+            class="text-none font-weight-bold"
           >
             Ver Proyectos
           </v-btn>
           <v-btn
-            class="secondary-cta"
             variant="outlined"
             size="large"
+            color="primary"
             href="#contacto"
+            rounded="lg"
+            class="text-none font-weight-bold"
           >
             Contactar
           </v-btn>
@@ -73,84 +110,56 @@
       </v-col>
 
       <v-col cols="12" md="5" class="hero-visual">
-        <!-- Decorated Code Window -->
+        <!-- Code Window -->
         <div class="decorated-terminal">
           <div class="terminal-decoration">
             <div class="skull-decoration">💀</div>
             <div class="flower-decoration">🌹</div>
           </div>
-          <div class="code-window">
-            <div class="window-header">
-              <div class="window-dots">
+
+          <v-card class="code-window" rounded="lg" elevation="0">
+            <v-card-title class="window-header d-flex align-center justify-space-between pa-3">
+              <div class="d-flex ga-2">
                 <span class="dot red"></span>
                 <span class="dot yellow"></span>
                 <span class="dot green"></span>
               </div>
-              <span class="window-title">developer.js</span>
-            </div>
-            <div class="code-content">
+              <span class="text-caption font-weight-bold" style="font-family: 'JetBrains Mono', 'Fira Code', monospace;">
+                developer.js
+              </span>
+            </v-card-title>
+
+            <v-divider />
+
+            <v-card-text class="code-content pa-6">
               <div class="code-line">
-                <span class="code-keyword">const</span>
-                <span class="code-variable">developer</span> = {
+                <span class="text-primary">const</span>
+                <span class="text-secondary"> developer</span> = {
               </div>
               <div class="code-line indent">
-                <span class="code-property">name:</span>
-                <span class="code-string">"Kevin"</span>,
+                <span class="text-tertiary">name:</span>
+                <span class="code-string"> "Kevin"</span>,
               </div>
               <div class="code-line indent">
-                <span class="code-property">skills:</span> [
-                <span class="code-string">"Vue"</span>,
-                <span class="code-string">"Node"</span>,
-                <span class="code-string">"Python"</span>],
+                <span class="text-tertiary">skills:</span> [<span class="code-string">"Vue"</span>, <span class="code-string">"Node"</span>, <span class="code-string">"Python"</span>],
               </div>
               <div class="code-line indent">
-                <span class="code-property">passion:</span>
-                <span class="code-string">"{{ currentMessage }}"</span>
+                <span class="text-tertiary">passion:</span>
+                <span class="code-string"> "{{ currentMessage }}"</span>
               </div>
               <div class="code-line">}</div>
-            </div>
-          </div>
+            </v-card-text>
+          </v-card>
         </div>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
-<script>
-export default {
-  data: () => ({
-    currentMessage: "",
-    messages: [
-      "Creando soluciones digitales innovadoras",
-      "Transformando ideas en código funcional",
-      "Desarrollando con pasión y precisión",
-      "Construyendo el futuro digital",
-    ],
-  }),
-  mounted() {
-    this.startAnimations();
-  },
-  methods: {
-    startAnimations() {
-      // Rotate messages
-      let messageIndex = 0;
-      this.currentMessage = this.messages[0];
-
-      setInterval(() => {
-        messageIndex = (messageIndex + 1) % this.messages.length;
-        this.currentMessage = this.messages[messageIndex];
-      }, 3000);
-    },
-  },
-};
-</script>
-
 <style scoped>
-/* DAY OF THE DEAD PROFESSIONAL THEME */
-
 .hero-container {
   min-height: 90vh;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  background: rgb(var(--v-theme-background));
   position: relative;
   overflow: hidden;
   display: flex;
@@ -161,129 +170,45 @@ export default {
 /* Day of the Dead Background Patterns */
 .dotd-bg {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   pointer-events: none;
   z-index: 1;
   opacity: 0.15;
 }
 
-.skull-pattern,
-.flower-pattern,
-.marigold-pattern {
+.skull-pattern, .flower-pattern, .marigold-pattern {
   position: absolute;
   font-size: 2rem;
   animation: float 6s ease-in-out infinite;
 }
 
-.skull-1 {
-  top: 20%;
-  left: 10%;
-  animation-delay: 0s;
-}
-.skull-2 {
-  top: 70%;
-  right: 20%;
-  animation-delay: 2s;
-}
-.skull-3 {
-  top: 40%;
-  left: 80%;
-  animation-delay: 4s;
-}
-
-.flower-1 {
-  top: 10%;
-  right: 30%;
-  animation-delay: 1s;
-  color: #ff6b9d;
-}
-.flower-2 {
-  bottom: 20%;
-  left: 20%;
-  animation-delay: 3s;
-  color: #ff8e53;
-}
-.flower-3 {
-  top: 60%;
-  left: 5%;
-  animation-delay: 5s;
-  color: #c44569;
-}
-
-.marigold-1 {
-  top: 30%;
-  right: 10%;
-  animation-delay: 1.5s;
-  color: #f39c12;
-}
-.marigold-2 {
-  bottom: 40%;
-  right: 70%;
-  animation-delay: 3.5s;
-  color: #e67e22;
-}
+.skull-1 { top: 20%; left: 10%; }
+.skull-2 { top: 70%; right: 20%; animation-delay: 2s; }
+.skull-3 { top: 40%; left: 80%; animation-delay: 4s; }
+.flower-1 { top: 10%; right: 30%; animation-delay: 1s; color: rgb(var(--v-theme-primary)); }
+.flower-2 { bottom: 20%; left: 20%; animation-delay: 3s; color: rgb(var(--v-theme-secondary)); }
+.flower-3 { top: 60%; left: 5%; animation-delay: 5s; color: rgb(var(--v-theme-tertiary)); }
+.marigold-1 { top: 30%; right: 10%; animation-delay: 1.5s; color: rgb(var(--v-theme-primary)); }
+.marigold-2 { bottom: 40%; right: 70%; animation-delay: 3.5s; color: rgb(var(--v-theme-secondary)); }
 
 @keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-20px) rotate(5deg);
-  }
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
 }
 
-/* Main Content */
 .hero-content-wrapper {
   position: relative;
   z-index: 10;
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-  padding: 0 1rem;
 }
 
-/* Professional Brand Section */
-.brand-section {
-  margin-bottom: 3rem;
-}
-
-.brand-logo {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.5rem;
-}
-
-/* Removed mango emoji styles */
-
-.brand-name {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: rgb(var(--v-theme-on-surface));
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-.brand-tagline {
-  color: rgb(var(--v-theme-on-surface-variant));
-  font-size: 1.125rem;
-  font-weight: 500;
-  margin: 0;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-/* Professional Title */
 .hero-title {
   font-size: 3.5rem;
   font-weight: 700;
   line-height: 1.1;
-  color: rgb(var(--v-theme-on-surface));
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   letter-spacing: -0.025em;
-  margin-bottom: 1.5rem;
 }
 
 .highlight-text {
@@ -298,38 +223,24 @@ export default {
   left: 0;
   width: 100%;
   height: 3px;
-  background: linear-gradient(90deg, #ff6b9d, #ff8e53, #c44569);
+  background: linear-gradient(90deg, rgb(var(--v-theme-primary)), rgb(var(--v-theme-secondary)), rgb(var(--v-theme-tertiary)));
   border-radius: 2px;
 }
 
-/* Professional Description */
 .hero-description {
   font-size: 1.25rem;
-  color: rgb(var(--v-theme-on-surface-variant));
   line-height: 1.7;
   max-width: 600px;
-  margin-bottom: 2rem;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Professional Metrics */
-.metrics-container {
-  display: flex;
-  gap: 2rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-}
-
+/* Metrics */
 .metric-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 107, 157, 0.2);
-  border-radius: 12px;
-  padding: 1.5rem;
-  text-align: center;
+  background: rgba(var(--v-theme-on-surface), 0.05);
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  border-color: rgba(var(--v-theme-primary), 0.2) !important;
 }
 
 .metric-card::before {
@@ -339,87 +250,15 @@ export default {
   left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, #ff6b9d, #ff8e53);
+  background: linear-gradient(90deg, rgb(var(--v-theme-primary)), rgb(var(--v-theme-secondary)));
 }
 
 .metric-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(255, 107, 157, 0.4);
-  box-shadow: 0 8px 25px rgba(255, 107, 157, 0.15);
+  box-shadow: 0 8px 25px rgba(var(--v-theme-primary), 0.15);
 }
 
-.metric-number {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: rgb(var(--v-theme-primary));
-  line-height: 1;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-  margin-bottom: 0.5rem;
-}
-
-.metric-label {
-  font-size: 0.875rem;
-  color: rgb(var(--v-theme-on-surface-variant));
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-/* Professional CTAs */
-.cta-buttons {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.primary-cta,
-.secondary-cta {
-  border-radius: 8px !important;
-  padding: 0.75rem 2rem !important;
-  font-weight: 600 !important;
-  text-transform: none !important;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
-  transition: all 0.3s ease !important;
-  position: relative;
-  overflow: hidden;
-}
-
-.primary-cta::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  transition: left 0.5s;
-}
-
-.primary-cta:hover::before {
-  left: 100%;
-}
-
-.primary-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 107, 157, 0.3);
-}
-
-.secondary-cta {
-  border: 2px solid rgb(var(--v-theme-primary)) !important;
-}
-
-.secondary-cta:hover {
-  transform: translateY(-2px);
-  background: rgb(var(--v-theme-primary)) !important;
-}
-
-/* Decorated Terminal */
+/* Terminal */
 .decorated-terminal {
   position: relative;
   max-width: 450px;
@@ -437,7 +276,7 @@ export default {
   position: absolute;
   top: 0;
   right: 0;
-  filter: drop-shadow(0 0 10px rgba(255, 107, 157, 0.5));
+  filter: drop-shadow(0 0 10px rgba(var(--v-theme-primary), 0.5));
   animation: pulse-decoration 3s ease-in-out infinite;
 }
 
@@ -446,176 +285,52 @@ export default {
   position: absolute;
   top: 40px;
   right: 20px;
-  color: #ff8e53;
+  color: rgb(var(--v-theme-secondary));
   animation: pulse-decoration 3s ease-in-out infinite reverse;
 }
 
 @keyframes pulse-decoration {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
 
 .code-window {
-  background: rgba(0, 0, 0, 0.8);
-  border: 1px solid rgba(255, 107, 157, 0.3);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+  background: rgba(var(--v-theme-surface), 0.95) !important;
+  border: 1px solid rgba(var(--v-theme-primary), 0.3);
   backdrop-filter: blur(10px);
 }
 
 .window-header {
-  background: rgba(255, 107, 157, 0.1);
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid rgba(255, 107, 157, 0.2);
+  background: rgba(var(--v-theme-primary), 0.08);
 }
 
-.window-dots {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-
-.dot.red {
-  background: #ff5f57;
-}
-.dot.yellow {
-  background: #ffbd2e;
-}
-.dot.green {
-  background: #28ca42;
-}
-
-.window-title {
-  color: rgb(var(--v-theme-on-surface));
-  font-weight: 600;
-  font-size: 0.875rem;
-  font-family: "JetBrains Mono", "Fira Code", monospace;
-}
+.dot { width: 12px; height: 12px; border-radius: 50%; }
+.dot.red { background: #ff5f57; }
+.dot.yellow { background: #ffbd2e; }
+.dot.green { background: #28ca42; }
 
 .code-content {
-  padding: 1.5rem;
   font-family: "JetBrains Mono", "Fira Code", monospace;
   font-size: 0.875rem;
-  line-height: 1.6;
+  line-height: 1.8;
 }
 
-.code-line {
-  display: block;
-  margin-bottom: 0.25rem;
-}
+.code-line { display: block; margin-bottom: 0.25rem; }
+.indent { padding-left: 1.5rem; }
+.text-secondary { color: rgb(var(--v-theme-secondary)); }
+.text-tertiary { color: rgb(var(--v-theme-tertiary)); }
+.code-string { color: #f39c12; }
 
-.indent {
-  padding-left: 1rem;
-}
-
-.code-keyword {
-  color: #ff6b9d;
-}
-.code-variable {
-  color: #ff8e53;
-}
-.code-property {
-  color: #c44569;
-}
-.code-string {
-  color: #f39c12;
-}
-
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 960px) {
-  .hero-container {
-    padding: 3rem 1rem;
-  }
-
-  .hero-content-wrapper {
-    padding: 0 0.5rem;
-  }
-
-  .hero-title {
-    font-size: 2.5rem;
-  }
-
-  .metrics-container {
-    gap: 1rem;
-    justify-content: center;
-  }
-
-  .metric-card {
-    padding: 1rem;
-    min-width: 120px;
-  }
-
-  .cta-buttons {
-    flex-direction: column;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-
-  .primary-cta,
-  .secondary-cta {
-    width: 100%;
-  }
+  .hero-container { padding: 3rem 1rem; }
+  .hero-title { font-size: 2.5rem; }
 }
 
 @media (max-width: 600px) {
-  .hero-container {
-    padding: 2rem 1rem;
-  }
-
-  .hero-title {
-    font-size: 2rem;
-    text-align: center;
-  }
-
-  .hero-description {
-    font-size: 1.125rem;
-    text-align: center;
-  }
-
-  .brand-section {
-    text-align: center;
-  }
-
-  .metrics-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .metric-card {
-    max-width: 200px;
-    width: 100%;
-  }
-
-  .decorated-terminal {
-    margin-top: 3rem;
-  }
-
-  .terminal-decoration {
-    top: -10px;
-    right: -10px;
-  }
-
-  .skull-decoration {
-    font-size: 2rem;
-  }
-
-  .flower-decoration {
-    font-size: 1.25rem;
-  }
+  .hero-container { padding: 2rem 1rem; }
+  .hero-title { font-size: 2rem; text-align: center; }
+  .hero-description { font-size: 1.125rem; text-align: center; }
+  .decorated-terminal { margin-top: 3rem; }
 }
 </style>

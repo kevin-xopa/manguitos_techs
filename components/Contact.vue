@@ -1,567 +1,376 @@
+<script setup>
+import { ref, reactive } from "vue";
+import { useScrollAnimation } from "~/composables/useScrollAnimation";
+
+const { sectionRef, isVisible } = useScrollAnimation();
+
+const formRef = ref();
+const formValid = ref(false);
+const loading = ref(false);
+const snackbar = ref(false);
+const snackbarText = ref("");
+const snackbarColor = ref("success");
+
+const form = reactive({
+  nombre: "",
+  email: "",
+  asunto: "",
+  mensaje: "",
+});
+
+const rules = {
+  required: (v) => !!v || "Este campo es requerido",
+  email: (v) => /.+@.+\..+/.test(v) || "Email inválido",
+};
+
+const contactLinks = [
+  {
+    icon: "mdi-email-outline",
+    text: "xopa.kevin.x@gmail.com",
+    href: "mailto:xopa.kevin.x@gmail.com",
+  },
+  {
+    icon: "mdi-whatsapp",
+    text: "+52 (249) 179-4353",
+    href: "https://wa.me/5212491794353",
+    hoverClass: "link--whatsapp",
+  },
+  {
+    icon: "mdi-linkedin",
+    text: "LinkedIn",
+    href: "https://linkedin.com/in/kevin-ochoa-xopa-88a454219",
+  },
+  {
+    icon: "mdi-github",
+    text: "GitHub",
+    href: "https://github.com/kevin-xopa",
+  },
+];
+
+const submitForm = async () => {
+  if (!formValid.value) return;
+
+  loading.value = true;
+  await new Promise((resolve) => setTimeout(resolve, 1500));
+
+  snackbarColor.value = "success";
+  snackbarText.value = "¡Gracias! Me pondré en contacto contigo pronto.";
+  snackbar.value = true;
+
+  form.nombre = "";
+  form.email = "";
+  form.asunto = "";
+  form.mensaje = "";
+  formRef.value?.reset();
+
+  loading.value = false;
+};
+</script>
+
 <template>
-  <section class="contact-section" id="contacto">
-    <!-- Day of the Dead Background -->
-    <div class="dotd-bg-contact">
-      <div class="skull-pattern skull-contact-1">💀</div>
-      <div class="skull-pattern skull-contact-2">💀</div>
-      <div class="flower-pattern flower-contact-1">🌺</div>
-      <div class="flower-pattern flower-contact-2">🌸</div>
-      <div class="flower-pattern flower-contact-3">🌹</div>
-      <div class="marigold-pattern marigold-contact-1">🧡</div>
-    </div>
+  <section id="contacto" ref="sectionRef" class="contact-section">
+    <v-container style="max-width: 1200px;">
+      <v-row justify="center">
+        <v-col cols="12" lg="10">
+          <div class="contact-wrapper" :class="{ 'animate-scale-in': isVisible }">
+            <!-- Left side — decorative -->
+            <div class="contact-left">
+              <div class="contact-left-content">
+                <v-chip color="white" variant="outlined" size="small" label class="mb-4">
+                  CONTACTO
+                </v-chip>
 
-    <v-container
-      class="position-relative"
-      style="z-index: 10; max-width: 1200px"
-    >
-      <v-row justify="center" class="pa-0">
-        <v-col cols="12" lg="8" class="d-flex pa-3">
-          <v-card class="contact-info-card flex-grow-1 pa-10" elevation="0">
-            <div class="text-center mb-8">
-              <div class="section-tag mb-6">Contacto</div>
-              <h2 class="contact-title mb-6">
-                ¿Listo para hacer realidad
-                <span class="highlight-text">tu próximo proyecto?</span>
-              </h2>
-              <p class="contact-description mb-12">
-                Cuéntame sobre tu idea y trabajemos juntos para crear algo
-                increíble. Respondo en menos de 24 horas.
-              </p>
+                <h2 class="contact-title">
+                  ¿Listo para hacer realidad tu próximo proyecto?
+                </h2>
+                <p class="contact-subtitle">
+                  Cuéntame sobre tu idea y trabajemos juntos para crear algo increíble.
+                  Respondo en menos de 24 horas.
+                </p>
+
+                <div class="contact-links">
+                  <a
+                    v-for="link in contactLinks"
+                    :key="link.href"
+                    :href="link.href"
+                    target="_blank"
+                    class="contact-link"
+                    :class="link.hoverClass"
+                  >
+                    <v-icon size="20">{{ link.icon }}</v-icon>
+                    <span>{{ link.text }}</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Day of the Dead decorations -->
+              <div class="deco deco--1">💀</div>
+              <div class="deco deco--2">🌺</div>
+              <div class="deco deco--3">🌸</div>
             </div>
 
-            <div class="mb-12">
-              <div
-                class="contact-method d-flex align-center justify-space-between mb-8 pa-6"
-              >
-                <div class="method-icon email mr-6">
-                  <v-icon size="24">mdi-email</v-icon>
-                </div>
-                <div class="flex-grow-1 d-flex flex-column justify-center">
-                  <h4 class="method-title mb-1">Email</h4>
-                  <p class="method-detail mb-1">xopa.kevin.x@gmail.com</p>
-                  <p class="method-note">Respuesta en 24h</p>
-                </div>
-                <v-btn
-                  class="method-btn"
-                  variant="outlined"
-                  size="small"
-                  color="primary"
-                  :href="`mailto:xopa.kevin.x@gmail.com`"
-                  target="_blank"
-                >
-                  <v-icon start size="16">mdi-open-in-new</v-icon>
-                  Enviar
-                </v-btn>
+            <!-- Right side — form -->
+            <div class="contact-right">
+              <div class="form-header">
+                <h3 class="form-title">Envía un mensaje</h3>
+                <p class="form-subtitle">Te contactaré en menos de 24 horas</p>
               </div>
 
-              <div
-                class="contact-method d-flex align-center justify-space-between mb-8 pa-6"
-              >
-                <div class="method-icon whatsapp mr-6">
-                  <v-icon size="24">mdi-whatsapp</v-icon>
+              <v-form ref="formRef" v-model="formValid" @submit.prevent="submitForm">
+                <div class="form-grid">
+                  <v-text-field
+                    v-model="form.nombre"
+                    label="Nombre"
+                    variant="outlined"
+                    density="comfortable"
+                    prepend-inner-icon="mdi-account"
+                    :rules="[rules.required]"
+                    color="primary"
+                  />
+                  <v-text-field
+                    v-model="form.email"
+                    label="Email"
+                    type="email"
+                    variant="outlined"
+                    density="comfortable"
+                    prepend-inner-icon="mdi-email"
+                    :rules="[rules.required, rules.email]"
+                    color="primary"
+                  />
                 </div>
-                <div class="flex-grow-1 d-flex flex-column justify-center">
-                  <h4 class="method-title mb-1">WhatsApp</h4>
-                  <p class="method-detail mb-1">+52 249 179 4353</p>
-                  <p class="method-note">Respuesta inmediata</p>
-                </div>
-                <v-btn
-                  class="method-btn"
-                  variant="outlined"
-                  size="small"
-                  color="primary"
-                  :href="`https://wa.me/5212491794353`"
-                  target="_blank"
-                >
-                  <v-icon start size="16">mdi-open-in-new</v-icon>
-                  Chatear
-                </v-btn>
-              </div>
 
-              <div
-                class="contact-method d-flex align-center justify-space-between mb-8 pa-6"
-              >
-                <div class="method-icon linkedin mr-6">
-                  <v-icon size="24">mdi-linkedin</v-icon>
-                </div>
-                <div class="flex-grow-1 d-flex flex-column justify-center">
-                  <h4 class="method-title mb-1">LinkedIn</h4>
-                  <p class="method-detail mb-1">kevin-ochoa-xopa-88a454219</p>
-                  <p class="method-note">Networking profesional</p>
-                </div>
-                <v-btn
-                  class="method-btn"
+                <v-text-field
+                  v-model="form.asunto"
+                  label="Asunto"
                   variant="outlined"
-                  size="small"
+                  density="comfortable"
+                  prepend-inner-icon="mdi-text-short"
+                  :rules="[rules.required]"
                   color="primary"
-                  href="https://linkedin.com/in/kevin-ochoa-xopa-88a454219"
-                  target="_blank"
-                >
-                  <v-icon start size="16">mdi-open-in-new</v-icon>
-                  Conectar
-                </v-btn>
-              </div>
+                  class="mb-1"
+                />
 
-              <div
-                class="contact-method d-flex align-center justify-space-between mb-8 pa-6"
-              >
-                <div class="method-icon github mr-6">
-                  <v-icon size="24">mdi-github</v-icon>
-                </div>
-                <div class="flex-grow-1 d-flex flex-column justify-center">
-                  <h4 class="method-title mb-1">GitHub</h4>
-                  <p class="method-detail mb-1">kevin-xopa</p>
-                  <p class="method-note">Código y proyectos</p>
-                </div>
-                <v-btn
-                  class="method-btn"
+                <v-textarea
+                  v-model="form.mensaje"
+                  label="¿En qué puedo ayudarte?"
                   variant="outlined"
-                  size="small"
+                  density="comfortable"
+                  prepend-inner-icon="mdi-message-text"
+                  rows="3"
+                  auto-grow
                   color="primary"
-                  href="https://github.com/kevin-xopa"
-                  target="_blank"
+                  class="mb-2"
+                />
+
+                <v-btn
+                  type="submit"
+                  color="primary"
+                  size="large"
+                  block
+                  :loading="loading"
+                  :disabled="!formValid"
+                  class="text-none font-weight-bold"
+                  rounded="lg"
                 >
-                  <v-icon start size="16">mdi-open-in-new</v-icon>
-                  Ver código
+                  <v-icon start>mdi-send</v-icon>
+                  Enviar mensaje
                 </v-btn>
-              </div>
+              </v-form>
+
+              <v-snackbar v-model="snackbar" :color="snackbarColor" timeout="5000">
+                {{ snackbarText }}
+              </v-snackbar>
             </div>
-          </v-card>
+          </div>
         </v-col>
       </v-row>
     </v-container>
   </section>
 </template>
 
-<script>
-export default {
-  name: "Contact",
-};
-</script>
-
 <style scoped>
-/* DAY OF THE DEAD CONTACT SECTION */
-
 .contact-section {
   background: transparent;
   position: relative;
-  overflow: hidden;
   padding: 6rem 0;
 }
 
-/* Day of the Dead Background Patterns */
-.dotd-bg-contact {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.08;
-}
-
-.skull-pattern,
-.flower-pattern,
-.marigold-pattern {
-  position: absolute;
-  font-size: 1.5rem;
-  animation: float 8s ease-in-out infinite;
-}
-
-.skull-contact-1 {
-  top: 25%;
-  left: 8%;
-  animation-delay: 0s;
-}
-.skull-contact-2 {
-  bottom: 30%;
-  right: 10%;
-  animation-delay: 4s;
-}
-.flower-contact-1 {
-  top: 15%;
-  right: 20%;
-  animation-delay: 1s;
-  color: #ff6b9d;
-}
-.flower-contact-2 {
-  bottom: 50%;
-  left: 15%;
-  animation-delay: 3s;
-  color: #ff8e53;
-}
-.flower-contact-3 {
-  top: 60%;
-  left: 50%;
-  animation-delay: 2s;
-  color: #c44569;
-}
-.marigold-contact-1 {
-  top: 80%;
-  right: 35%;
-  animation-delay: 2.5s;
-  color: #f39c12;
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-15px) rotate(3deg);
-  }
-}
-
-.contact-info {
-  position: relative;
-}
-
-/* Contact Info Card */
-.contact-info-card {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 107, 157, 0.2);
-  border-radius: 16px;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.contact-info-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, #ff6b9d, #ff8e53, #c44569);
-}
-
-.contact-info-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255, 107, 157, 0.3);
-  box-shadow: 0 15px 30px rgba(255, 107, 157, 0.1);
-}
-
-.section-tag {
-  display: inline-block;
-  background: rgba(255, 107, 157, 0.1);
-  color: rgb(var(--v-theme-primary));
-  padding: 0.5rem 1.5rem;
-  border-radius: 24px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-  border: 1px solid rgba(255, 107, 157, 0.2);
-}
-
-.contact-title {
-  font-size: 2.75rem;
-  font-weight: 700;
-  color: rgb(var(--v-theme-on-surface));
-  line-height: 1.2;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-.highlight-text {
-  color: rgb(var(--v-theme-primary));
-  position: relative;
-}
-
-.highlight-text::after {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg, #ff6b9d, #ff8e53, #c44569);
-  border-radius: 2px;
-}
-
-.contact-description {
-  font-size: 1.125rem;
-  color: rgb(var(--v-theme-on-surface-variant));
-  line-height: 1.7;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-.contact-method {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 107, 157, 0.1);
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  gap: 1rem;
-}
-
-.contact-method:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255, 107, 157, 0.2);
-  box-shadow: 0 8px 20px rgba(255, 107, 157, 0.1);
-}
-
-.method-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
+.contact-wrapper {
   display: flex;
-  align-items: center;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+}
+
+/* Left side */
+.contact-left {
+  position: relative;
+  flex: 0 0 42%;
+  background: linear-gradient(135deg, rgb(var(--v-theme-primary)), rgba(var(--v-theme-secondary), 0.9));
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  color: white;
-  transition: transform 0.3s ease;
-}
-
-.contact-method:hover .method-icon {
-  transform: scale(1.1);
-}
-
-.method-icon.email {
-  background: linear-gradient(135deg, #ff6b9d 0%, #ff8e53 100%);
-}
-
-.method-icon.whatsapp {
-  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
-}
-
-.method-icon.linkedin {
-  background: linear-gradient(135deg, #0077b5 0%, #005885 100%);
-}
-
-.method-icon.github {
-  background: linear-gradient(135deg, #333 0%, #1a1a1a 100%);
-}
-
-.method-title {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: rgb(var(--v-theme-on-surface));
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-.method-detail {
-  font-size: 1rem;
-  color: rgb(var(--v-theme-on-surface-variant));
-  font-weight: 500;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-.method-note {
-  font-size: 0.875rem;
-  color: rgb(var(--v-theme-on-surface-variant));
-  opacity: 0.7;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-/* Method Buttons */
-.method-btn {
-  border: 1px solid rgb(var(--v-theme-primary)) !important;
-  color: rgb(var(--v-theme-primary)) !important;
-  font-weight: 500 !important;
-  text-transform: none !important;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
-  transition: all 0.3s ease !important;
-  flex-shrink: 0;
-}
-
-.method-btn:hover {
-  background: rgb(var(--v-theme-primary)) !important;
-  color: white !important;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.3);
-}
-
-.contact-form {
-  position: relative;
-}
-
-/* Form Decoration */
-.form-decoration {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  z-index: 5;
-}
-
-.skull-decoration-form {
-  font-size: 1.5rem;
-  position: absolute;
-  top: 0;
-  right: 0;
-  filter: drop-shadow(0 0 6px rgba(255, 107, 157, 0.3));
-  animation: pulse-decoration 4s ease-in-out infinite;
-}
-
-.flower-decoration-form {
-  font-size: 1.25rem;
-  position: absolute;
-  top: 25px;
-  right: 15px;
-  color: #ff8e53;
-  animation: pulse-decoration 4s ease-in-out infinite reverse;
-}
-
-@keyframes pulse-decoration {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.6;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.8;
-  }
-}
-
-.form-card {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 107, 157, 0.2);
-  border-radius: 16px;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-  position: relative;
   overflow: hidden;
 }
 
-.form-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, #ff6b9d, #ff8e53, #c44569);
-}
-
-.form-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255, 107, 157, 0.3);
-  box-shadow: 0 15px 30px rgba(255, 107, 157, 0.1);
-}
-
-.form-content {
+.contact-left-content {
   position: relative;
   z-index: 2;
 }
 
+.contact-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: rgb(var(--v-theme-on-primary));
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.contact-subtitle {
+  font-size: 0.95rem;
+  color: rgba(var(--v-theme-on-primary), 0.85);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: rgba(var(--v-theme-on-primary), 0.12);
+  border-radius: 12px;
+  color: rgb(var(--v-theme-on-primary));
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.contact-link:hover {
+  background: rgba(var(--v-theme-on-primary), 0.22);
+  transform: translateX(4px);
+}
+
+.link--whatsapp:hover {
+  background: rgba(37, 211, 102, 0.35);
+}
+
+/* Day of the Dead decorations */
+.deco {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.15;
+  animation: floatDeco 8s ease-in-out infinite;
+}
+
+.deco--1 {
+  top: -10px;
+  right: -10px;
+  font-size: 4rem;
+}
+
+.deco--2 {
+  bottom: 20px;
+  left: -5px;
+  font-size: 2.5rem;
+  animation-delay: 2s;
+}
+
+.deco--3 {
+  top: 45%;
+  right: 10px;
+  font-size: 2rem;
+  animation-delay: 4s;
+}
+
+@keyframes floatDeco {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(5deg); }
+}
+
+/* Right side */
+.contact-right {
+  flex: 1;
+  background: rgb(var(--v-theme-surface));
+  padding: 48px 40px;
+}
+
+.form-header {
+  margin-bottom: 28px;
+}
+
 .form-title {
-  font-size: 1.75rem;
-  font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 700;
   color: rgb(var(--v-theme-on-surface));
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  margin-bottom: 4px;
 }
 
 .form-subtitle {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: rgb(var(--v-theme-on-surface-variant));
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-.submit-btn {
-  background: rgb(var(--v-theme-primary)) !important;
-  color: white !important;
-  border-radius: 8px !important;
-  font-weight: 600 !important;
-  text-transform: none !important;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
-  transition: all 0.3s ease !important;
-  position: relative;
-  overflow: hidden;
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 4px;
 }
 
-.submit-btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  transition: left 0.5s;
+/* Animation */
+.animate-scale-in {
+  animation: scaleIn 0.7s ease-out forwards;
 }
 
-.submit-btn:hover::before {
-  left: 100%;
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
-.submit-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 107, 157, 0.3);
-}
-
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 960px) {
-  .contact-section {
-    padding: 4rem 0;
+  .contact-section { padding: 4rem 0; }
+
+  .contact-wrapper {
+    flex-direction: column;
+    border-radius: 20px;
   }
 
-  .contact-container {
-    padding: 0 1rem;
+  .contact-left {
+    flex: none;
+    padding: 36px 28px;
   }
 
-  .contact-content {
-    gap: 2rem;
-  }
+  .contact-title { font-size: 1.5rem; }
 
-  .contact-title {
-    font-size: 2.25rem;
-  }
+  .contact-right { padding: 32px 28px; }
 
-  .form-content {
-    padding: 2rem;
-  }
+  .form-grid { grid-template-columns: 1fr; }
 
-  .form-decoration {
-    top: -5px;
-    right: -5px;
-  }
-
-  .skull-decoration-form {
-    font-size: 1.25rem;
-  }
-
-  .flower-decoration-form {
-    font-size: 1rem;
-    top: 20px;
-    right: 12px;
-  }
+  .deco--3 { display: none; }
 }
 
 @media (max-width: 600px) {
-  .contact-section {
-    padding: 3rem 0;
-  }
-
-  .contact-title {
-    font-size: 1.875rem;
-  }
-
-  .contact-method {
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-    padding: 1rem;
-  }
-
-  .method-icon {
-    margin-right: 0;
-    margin-bottom: 1rem;
-  }
-
-  .form-content {
-    padding: 1.5rem;
-  }
-
-  .form-decoration {
-    display: none;
-  }
+  .contact-section { padding: 3rem 0; }
+  .contact-title { font-size: 1.35rem; }
+  .contact-left { padding: 28px 20px; }
+  .contact-right { padding: 28px 20px; }
 }
 </style>
